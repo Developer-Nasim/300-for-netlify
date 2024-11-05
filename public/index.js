@@ -1,3 +1,5 @@
+const baseUrl = window.location.origin;
+
 window.addEventListener("DOMContentLoaded", () => {
   async function sendMessage(message = null) {
     let userInput = "";
@@ -24,18 +26,15 @@ window.addEventListener("DOMContentLoaded", () => {
     };
     const userMessage = { role: "user", content: userInput };
     try {
-      const response = await fetch(
-        "https://effervescent-torte-a1db37.netlify.app/api/chat",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            message: userInput,
-          }),
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/chat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: userInput,
+        }),
+      });
 
       if (!response.ok) {
         if (response.status === 401) {
